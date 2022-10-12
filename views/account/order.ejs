@@ -1,0 +1,40 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+
+<div class="container-fluid orderBox">
+
+  <%if(orders.length == 0){%>
+  <div>
+    <img class="emptyImg" src="/static/image/shopping-bag.svg" alt="">
+    <h5 class="emptyMessage">You have no order yet.</h5>
+    <a class="btn btn-outline-secondary" href="/all">BACK TO HOMEPAGE</a>
+  </div>
+  <% } else {%>
+  <h5 class="accountTitle">MY ORDERS</h5>
+  <div class="orderDisplay">
+    <span class="orderDisplayItem">ORDER NO.</span>
+    <span class="orderDisplayItem">DATE</span>
+    <span class="orderDisplayItem">TOTAL</span>
+    <span class="orderDisplayItem"> STATUS</span>
+  </div>
+  <%for (let order of orders){%>
+  <div class="orderDisplay">
+    <a href="/account/order/<%= order.orderNumber %>" class="orderDisplayItem"><%= order.orderNumber %></a>
+    <span class="orderDisplayItem"><%= order.createdAt.toLocaleDateString()%></span>
+    <span class="orderDisplayItem">$ <%= Number(order.orderSum).toLocaleString() %></span>
+    <% if(order.paymentStatus == "Outstanding"){ %>
+    <div class="orderEdit orderDisplayItem btn-group btn-group-sm" role="group">
+      <a href="/payment/<%= order.orderNumber %>" class="btn btn-outline-secondary">PAY</a>
+      <button  type="button" class="cancelOrderBtn btn btn-outline-secondary" value="<%= order.orderNumber %>">CANCEL</button>
+    </div>
+    <% } else { %>
+    <span class="orderDisplayItem"> <%= order.paymentStatus %> </span>
+    <% } %>
+  </div>
+  <%}%>
+    <%}%>
+
+</div>
+
+<%- include("../includes/footer") %>
+<script src="/static/js/account.js"></script>

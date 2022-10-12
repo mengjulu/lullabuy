@@ -1,0 +1,124 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+
+<div class="container-fluid cartBox">
+
+    <% if(carts.length == 0){ %>
+
+    <img class="emptyImg" src="/static/image/cart.svg" alt="">
+    <p class="emptyMessage">Your cart is currently empty.</p>
+    <a class="btn btn-outline-secondary" href="/">BACK TO HOMEPAGE</a>
+
+    <% }else { %>
+    <div class="row d-flex justify-content-center align-items-center w-100 h-100">
+        <div class="col">
+            <% for(let product of carts){ %>
+            <div class="cartCard card">
+                <div class="cartCardBody card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <img src="<%=product[0].imageUrl%>" loading="lazy" class="cartImg"
+                                alt="<%=product[0].name%>">
+                        </div>
+                        <div class="col-md-2 d-flex text-center justify-content-center">
+                            <div>
+                                <p class="small text-muted mb-2 pb-2">Product</p>
+                                <p class="fw-normal mb-0"><%=product[0].name%></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex text-center justify-content-center">
+                            <div>
+                                <p class="small text-muted mb-2 pb-2">Qty</p>
+
+                                <p class="fw-normal mb-0"><button value="-1" class="editAmountBtn"
+                                        data-productid="<%= product[0].id %>">
+                                        <img class="qtyIcon" src="/static/image/icon/minus.svg" alt="-">
+                                    </button>
+                                    <span class="cartQuantity"><%=product[1]%></span>
+                                    <button value="1" class="editAmountBtn" data-productid="<%= product[0].id %>">
+                                        <img class="qtyIcon" src="/static/image/icon/plus.svg" alt="+"></button></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex text-center justify-content-center">
+                            <div>
+                                <p class="small text-muted mb-2 pb-2">Price</p>
+                                <p class="productPrice fw-normal mb-0">$<%=product[0].price.toLocaleString()%></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex text-center justify-content-center">
+                            <div>
+                                <p class="small text-muted mb-2 pb-2">Total</p>
+                                <p class="productAmount fw-normal mb-0">
+                                    $<%=(product[0].price * product[1]).toLocaleString()%></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex text-center justify-content-center">
+                            <div>
+                                <p class="small text-muted mb-2 pb-2">Delete</p>
+                                <p class="fw-normal mb-0">
+                                    <button value="<%= product[0].id %>" class="deleteCartBtn">
+                                        <img class="icon" src="/static/image/icon/delete.svg" alt="delete">
+                                    </button></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <div class="card cartCard">
+                <div class="card-body cartCardBody">
+                    <div class="float-end">
+                        <p class="mb-0 me-2 d-flex align-items-center">
+                            <span class="small text-muted me-2">Order total: </span>
+                            <span class="orderAmount fw-normal">$<%= cartSum.toLocaleString() %></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body cartCardBody">
+                <h4 class="mb-3">Billing informations</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" value="<%= user?.firstName %>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" value="<%= user?.lastName %>" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email <span class="text-muted"></span></label>
+                    <input type="email" class="form-control" id="email" value="<%= user?.account %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Phone number</label>
+                    <input type="text" class="form-control" id="number" value="<%= user?.number %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" value="<%= user?.address %>" required>
+                </div>
+                <%if (user) {%>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="saveCheck">
+                    <label class="custom-control-label" for="saveCheck">Save this information for next time</label>
+                </div>
+                <% } %>
+                <div class="alert alert-danger shippingInfoAlertMessage"></div>
+                <hr class="mb-4">
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <a href="/all" class="btn btn-outline-secondary me-2">Continue shopping</a>
+                <button class="checkoutBtn btn btn-secondary me-3">Checkout</button>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/cart.js"></script>

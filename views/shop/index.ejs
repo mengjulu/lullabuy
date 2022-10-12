@@ -1,0 +1,62 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+
+
+<div class="container-fluid cardBox">
+
+  <% if(allProducts.length > 0) {%>
+  <div class="titleBox">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/all">Home</a></li>
+        <% if(breadcrumb) { %>
+        <li class="breadcrumb-item"><a href="/<%= breadcrumb[0] %>"><%= breadcrumb[0] %></a></li>
+        <li class="breadcrumb-item" aria-current="page"><%= breadcrumb[1] %></li>
+        <% } %>
+      </ol>
+    </nav>
+
+    <%- include("../includes/sort", {sortUrl: sortUrl}) %>
+  </div>
+  <p class="categorySubTitle"><%=allProducts.length%> item(s)</p>
+  <div class="productCardDisplay">
+    <%for (let product of allProducts){%>
+    <div class="card productCard">
+      <div class="cardHead">
+        <span class="badge bg-light text-dark"><%=product.category%></span>
+        <%if(user){%>
+        <button class="wishListHeart" value="<%= product.id %>">
+          <img class="wishListHeartIcon"
+            src="/static/image/icon/<%= wishlists.includes(product.id) ? "full-heart" : "empty-heart" %>.svg" alt="">
+        </button>
+        <%}%>
+    </div>
+      <img src="<%= product.imageUrl %>" loading="lazy" class="img-fluid cardImg" alt="photo">
+        <div class="card-body productCardBody">
+          <a href="/<%= product.category %>/<%= product.subcategory %>/<%= product.name %>">
+            <p class="card-title"><%= product.name %></p>
+          </a>
+          <p class="card-subtitle text-muted">$<%= product.price.toLocaleString() %></p>
+
+          <%if (product.stock) {%>
+          <button class="btn cartBtn" value="<%= product.id %>">ADD TO CART</button>
+          <% } else { %>
+          <button class="btn cartBtn  btn-secondary" disabled>SOLD OUT</button>
+          <% } %>
+        </div>
+      </div>
+      <%}%>
+        </div>
+        <%} else {%>
+      <div class="errorBox">
+        <img class="errorImg" src="/static/image/error.svg" alt="">
+        <h5 class="errorMessage">Oops! Nothin found.</h5>
+        <a class="btn btn-outline-secondary" href="/">BACK TO HOMEPAGE</a>
+      </div>
+      <%}%>
+</div>
+
+<%- include("../includes/footer") %>
+
+      <script src="/static/js/cart.js"></script>
+      <script src="/static/js/wishlist.js"></script>

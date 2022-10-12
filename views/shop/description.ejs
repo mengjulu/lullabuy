@@ -1,0 +1,48 @@
+<%- include("../includes/header") %>
+<% if(user?.isAdmin) {%>
+<%- include("../includes/adminNavbar") %>
+<%} else {%>
+<%- include("../includes/shopNavbar") %>
+<% } %>
+
+<div class="container-fluid">
+    <div class="titleBox">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/all">Home</a></li>
+                <li class="breadcrumb-item"><a href="/<%= product.category %>"><%= product.category %></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/<%= product.category %>/<%= product.subcategory %>"><%= product.subcategory %></a>
+                </li>
+                <li class="breadcrumb-item text-muted" aria-current="page"><%= product.name %></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="descriptionBox">
+        <img class="descriptionImg" src="<%= product.imageUrl%>" alt="">
+        <div class="description">
+            <h5><%=product.name %> <%if(user){%>
+                <button class="wishListHeart" value="<%= product.id %>">
+                    <img class="wishListHeartIcon"
+                        src="/static/image/icon/<%= wishlists.includes(product.id) ? "full-heart" : "empty-heart" %>.svg"
+                        alt="">
+                </button>
+                <%}%></h5>
+            <p>$ <%= product.price.toLocaleString() %></p>
+                <p class="productDescriptionText"><%= product.description %></p>
+                <div class="descriptionBottom">
+                    <%if (product.stock) {%>
+                    <button class="btn cartBtn" value="<%= product.id %>">ADD TO CART</button>
+                    <% } else { %>
+                    <button class="btn cartBtn  btn-secondary" disabled>SOLD OUT</button>
+                    <% } %>
+                </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../includes/footer") %>
+
+<script src="/static/js/cart.js"></script>
+<script src="/static/js/wishlist.js"></script>

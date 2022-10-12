@@ -1,0 +1,10 @@
+<div class="dropdown">
+    <button class="btn btn-sm" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        sort <img class="icon" src="/static/image/icon/sort.svg" alt="">
+    </button>
+    <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="sortDropdown">
+        <a class="dropdown-item" href="/<%= sortUrl %>?sort=price-ascending"> PRICE: LOW TO HIGH</a>
+        <a class="dropdown-item" href="/<%= sortUrl %>?sort=price-descending">PRICE: HIGH TO LOW</a>
+        <a class="dropdown-item" href="/<%= sortUrl %>?sort=created-descending">NEW IN</a>
+    </div>
+</div>

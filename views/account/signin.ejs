@@ -1,0 +1,24 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+<div class="container-fluid authBox">
+
+  <div class="signinBox">
+    <div class="form-group">
+      <label for="account">Email address</label>
+      <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <span class="alert alert-danger authAlertMessage"></span>
+    <button class="signInBtn btn btn-outline-secondary">Sign in</button>
+  </div>
+  <div class="separateLine"></div>
+  <div class="signupBox">
+    Have no account yet?
+    <a href="/signup" class="signBtn btn btn-outline-secondary">Sign up</a>
+  </div>
+</div>
+<%- include("../includes/footer") %>
+<script src="/static/js/auth.js"></script>

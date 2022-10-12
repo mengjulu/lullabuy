@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+   redis:
+      image: redis
+      container_name: redis
+      command: redis-server
+      restart: always
+   mysql:
+      image: mysql
+      container_name: mysql
+      environment:
+         MYSQL_ROOT_PASSWORD: "test"
+   lullabuy:
+   # If you want to build image from your local code, 
+   # please uncomment build line and comment out image line.
+      # build: .
+      image: mengjulu/lullabuy
+      container_name: lullabuy
+      ports:
+         - "3000:3000"
+      env_file: .env
+      environment: 
+         MYSQL_PASSWORD: "test"
+         MYSQL_HOST: "mysql"
+         REDIS_HOST: "redis"
+      depends_on:
+         - mysql
+         - redis

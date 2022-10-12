@@ -1,0 +1,33 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+
+<div class="container-fluid resultBox">
+   <% if (tradeMode) {%>
+   <img class="resultImg" src="/static/image/cheers.gif" alt="">
+   <h5 class="resultTitle">PAYMENT SUCCESSFUL</h5>
+   <i class="resultLine fad fa-ellipsis-h"></i>
+   <div class="resultDisplay">
+      <div class="resultMessageBox">
+         <p p class="resultMessageTitle">ORDER NUMBER</p>
+         <p class="resultMessage"><%= orderNumber %></p>
+      </div>
+      <div class="resultMessageBox">
+         <p class="resultMessageTitle">TRANSACTION TIME</p>
+         <p class="resultMessage"><%= tradeDate %></p>
+      </div>
+      <div class="resultMessageBox">
+         <p class="resultMessageTitle">AMOUNT PAID</p>
+         <p class="resultMessage">$ <%= tradeAmt.toLocaleString() %></p>
+      </div>
+
+   </div>
+   <a class="btn btn-outline-secondary" href="/">BACK TO HOMEPAGE</a>
+
+   <% } else { %>
+   <img class="resultImg" src="/static/image/error.svg" alt="">
+   <h5 class="errorMessage">Oops! Payment failed. Please try again!</h5>
+   <% } %>
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/cart.js"></script>

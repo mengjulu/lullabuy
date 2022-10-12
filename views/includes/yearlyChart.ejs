@@ -1,0 +1,82 @@
+<canvas id="yearlyChart" height="300px"></canvas>
+
+<script>
+    let labels = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+
+    let yearlyBarData = JSON.parse("<%= yearlyBarData %>");
+    let yearlyLineData = JSON.parse("<%= yearlyLineData %>");
+    let data = {
+        labels: labels,
+        datasets: [{
+            type: "bar",
+            label: "Monthly Revenue",
+            data: yearlyBarData,
+            borderColor: "#c12924ae",
+            backgroundColor: "#c12924ae",
+            yAxisID: "y"
+        }, {
+            type: "line",
+            label: "Number of orders",
+            data: yearlyLineData,
+            fill: true,
+            borderColor: "#2A91B0",
+            backgroundColor: "rgba(42, 145, 176, 0.2)",
+            yAxisID: "y1"
+        }]
+    };
+
+    let config = {
+        type: "scatter",
+        data: data,
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false,
+        scales: {
+            y: {
+                type: "linear",
+                display: true,
+                position: "left",
+                beginAtZero: true,
+                stacked: true,
+                ticks: {
+                    precision: 0
+                }
+            },
+            y1: {
+                type: "linear",
+                display: true,
+                position: "right",
+                beginAtZero: true,
+                stacked: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: "Yearly review",
+            }
+        }
+    }
+    };
+    let yearlyChart = new Chart(
+        $("#yearlyChart"),
+        config
+    );
+</script>

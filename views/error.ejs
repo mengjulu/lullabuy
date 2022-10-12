@@ -1,0 +1,13 @@
+<%- include("includes/header") %>
+<% if(user && user.isAdmin) {%>
+<%- include("includes/adminNavbar") %>
+<% } else { %>
+<%- include("includes/shopNavbar") %>
+<% } %>
+
+<div class="errorBox">
+    <img class="errorImg" src="/static/image/error.svg" alt="error!">
+    <h5 class="errorMessage"><%= errorMessage %></h5>
+    <a class="btn btn-outline-secondary" href="/">BACK TO HOMEPAGE</a>
+</div>
+<%- include("includes/footer") %>

@@ -1,0 +1,35 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+<div class="container-fluid authBox">
+  <div class="signupBox">
+    <img class="signImg" src="/static/image/hello.svg" alt="">
+    <div class="form-group">
+        <label for="account">Email address</label>
+        <input type="email" class="form-control" id="account" aria-describedby="emailHelp"
+          placeholder="Enter email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" minlength="8" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <label for="name">First name</label>
+        <input type="text" class="form-control" id="firstName">
+      </div>
+      <div class="form-group">
+        <label for="name">Last name</label>
+        <input type="text" class="form-control" id="lastName">
+      </div>
+      <div class="form-group">
+        <label for="number">Number</label>
+        <input type="tel" class="form-control" id="number">
+      </div>
+        <span class="alert alert-danger authAlertMessage"></span>
+        <button class="signUpBtn btn btn-outline-secondary">Sign up</button>
+
+  </div>
+
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/auth.js"></script>

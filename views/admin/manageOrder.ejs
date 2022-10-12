@@ -1,0 +1,56 @@
+<%- include("../includes/header") %>
+<%- include("../includes/adminNavbar") %>
+
+<div class="container-fluid orderBox">
+
+    <%if(allOrders.length == 0){%>
+    <div class="orderEmpty">
+        <img class="emptyImg" src="/static/image/shopping-bag.svg" alt="">
+        <h5 class="emptyMessage">No order yet.</h5>
+    </div>
+    <% } else {%>
+    <h5 class="accountTitle">ORDER LIST</h5>
+    <div class="orderDisplay">
+        <span class="orderDisplayItem">ORDER NO.</span>
+        <span class="orderDisplayItem">DATE</span>
+        <span class="orderDisplayItem">TOTAL</span>
+        <div class="dropdown orderDisplayItem ">
+            <span id="statusBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                PAYMENT STATUS▾
+            </span>
+            <ul class="dropdown-menu" aria-labelledby="statusBtn">
+                <li><a class="dropdown-item" href="/admin/order?status=1">Paid</a></li>
+                <li><a class="dropdown-item" href="/admin/order?status=2">Outstanding</a></li>
+                <li><a class="dropdown-item" href="/admin/order?status=3">Canceled</a></li>
+            </ul>
+        </div>
+        <span class="orderDisplayEdit"></span>
+    </div>
+    <%for(let order of allOrders) {%>
+    <div class="orderDisplay">
+        <a href="/admin/order/<%= order.orderNumber %>" class="orderDisplayItem"><%= order.orderNumber %></a>
+        <span class="orderDisplayItem"><%= order.createdAt.toLocaleDateString()%></span>
+        <span class="orderDisplayItem">$ <%= Number(order.orderSum).toLocaleString() %></span>
+        <span class="paymentStatus orderDisplayItem"><%= order.paymentStatus  %></span>
+
+            <% if(order.paymentStatus == "Canceled"){ %>
+            <button class="orderDisplayEdit btn btn-sm btn-outline-secondary deleteOrderBtn" value="<%= order.orderNumber %>">
+                Delete
+            </button>
+            <%} else if(order.paymentStatus == "Outstanding"){%>
+            <button class="orderDisplayEdit btn btn-sm btn-outline-secondary cancelOrderBtn" value="<%= order.orderNumber %>">
+                Cancel
+            </button>
+            <%} else {%>
+            <button class="orderDisplayEdit btn btn-sm btn-outline-secondary informOrderBtn" value="<%= order.orderNumber %>">
+                Inform
+            </button>
+            <% } %>
+    </div>
+    <%}%>
+        </div>
+        <%}%>
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/admin.js"></script>

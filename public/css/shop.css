@@ -1,0 +1,149 @@
+/* index */
+.coverPageBox {
+    width: 100%;
+    height: 80vh;
+    padding: 0;
+    background-image: url("../image/lullabuyBanner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.coverPageBtn {
+    align-self: center;
+    margin: 1rem;
+}
+
+/* product page */
+
+.cardBox {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2rem;
+}
+
+.categorySubTitle {
+    align-self: flex-end;
+    padding: 0 2rem;
+    font-size: smaller;
+    color: gray;
+}
+
+.productCardDisplay {
+    width: 100%;
+    display: grid;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, 16.5rem);
+    grid-gap: 0.5rem;
+}
+
+.productCard {
+    padding: 1vw;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: none;
+}
+
+.productCardBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardImg {
+    padding: 2%;
+    width: 80%;
+    align-self: center;
+}
+
+.cartBtn {
+    font-size: small;
+    width: 7rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    color: grey;
+    background-color: transparent;
+    padding: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.cartBtn:hover {
+    background-color: grey;
+    color: white;
+}
+
+/* description */
+
+.descriptionBox {
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.description {
+    flex-direction: column;
+
+}
+
+.productDescriptionText {
+    white-space: pre-line;
+    word-wrap: break-word;
+    word-break: keep-all;
+}
+
+.descriptionBottom {
+    display: inline-flex;
+}
+
+.descriptionImg {
+    height: 100%;
+    margin: 0 2rem 2rem 2rem;
+}
+
+@media (max-width: 600px) {
+    .productCardDisplay {
+        grid-template-columns: repeat(auto-fit, 20rem);
+    }
+
+    .descriptionBox {
+        flex-direction: column;
+        height: 100%;
+        padding: 2rem;
+        justify-content: center;
+    }
+
+    .description {
+        flex-direction: column;
+
+    }
+
+    .descriptionImg {
+        width: 100%;
+    }
+}

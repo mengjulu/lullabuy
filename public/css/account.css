@@ -1,0 +1,174 @@
+/* auth related */
+.authBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 80vh;
+    margin: 1rem;
+}
+
+.signinBox,
+.signupBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+}
+
+.signImg {
+    width: 50%;
+}
+
+.separateLine {
+    border-left: 1px solid lightgray;
+    height: 50vh;
+}
+
+.signInBtn,
+.signUpBtn,
+.signBtn {
+    margin: 1rem;
+}
+
+.authAlertMessage {
+    display: none;
+    word-break: normal;
+    width: 15rem;
+    margin: 1rem 0;
+}
+
+/* account related */
+.accountBox {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 80vh;
+    padding: 3rem;
+}
+
+.accountTitle {
+    font-family: 'Gideon Roman', cursive;
+    margin: 0rem 1rem 2rem 1rem;
+}
+
+.accountSubTitle {
+    font-family: 'Gideon Roman', cursive;
+    align-self: flex-start;
+    margin-bottom: 2rem;
+}
+
+.wishlistDisplay {
+    width: 100%;
+    display: grid;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fit, 16.5rem);
+    grid-gap: 1rem;
+}
+
+.wishListHeart {
+    align-self: flex-end;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    margin: 1rem 0;
+}
+
+.wishListHeartIcon {
+    width: 1rem;
+}
+
+.orderBox {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start;
+    min-height: 80vh;
+    padding: 2rem;
+}
+
+.orderInfoTitleBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.orderDisplay {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid lightgray;
+    padding: 0.5rem;
+    font-size: smaller;
+    text-align: center;
+}
+
+.orderDisplayItem {
+    width: 21%;
+    height: 100%;
+    word-wrap: break-word;
+    margin: 2px;
+}
+
+.orderDisplayEdit {
+    width: 75px;
+    height: 100%;
+    word-wrap: break-word;
+    margin: 2px;
+}
+
+.orderDisplayImg {
+    width: 15%;
+    height: 100%;
+    margin: 2%;
+}
+
+.orderInfoBox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.infoText {
+    color: gray;
+}
+
+.infoItem {
+    margin: 0.5rem 0;
+}
+
+.orderDetailSum {
+    align-self: flex-end;
+    margin: 3% 0;
+}
+
+.settingsDisplay {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+
+    /* auth related */
+    .separateLine {
+        height: 0;
+        width: 50vw;
+        border-left: 0;
+        border-bottom: 1px solid lightgray;
+    }
+
+    .authBox {
+        flex-direction: column;
+    }
+}

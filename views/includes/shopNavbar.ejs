@@ -1,0 +1,77 @@
+<header class="navbar sticky-top bg-white py-3 border-bottom">
+    <div class="container-fluid align-items-center">
+        <img class="navImg" src="/static/image/icon/list.svg" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+            aria-controls="offcanvas">
+
+        <a class="navbar-brand" href="/">
+            <img class="brandImg" src="/static/image/brand.svg" alt="Lullabuy">
+        </a>
+        <div class="nav-item d-flex align-items-center">
+            <form class="me-3 navSearch" method="post" action="/search">
+                <input type="search" class="form-control" name="search" placeholder="Search" aria-label="Search">
+            </form>
+            <div class="nav-item navCartBox">
+                <a href="/cart" class="link-dark text-decoration-none"><img class="icon"
+                        src="/static/image/icon/navbar-cart.svg" alt=""><span class="cartNum"><%=cartNum%></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="javascript:(0)" class="link-dark text-decoration-none dropdown-toggle" id="dropdownUser"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="icon" src="/static/image/icon/account.svg" alt="">
+                </a>
+                <!-- account -->
+                <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser">
+                    <%if(user) {%>
+                    <li><a class="dropdown-item" href="/account/wishlist">Wishlist</a></li>
+                    <li><a class="dropdown-item" href="/account/order">Order</a></li>
+                    <li><a class="dropdown-item" href="/account/settings">Settings</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <a class="dropdown-item" href="/signout">Sign out</a></li>
+                    <%}else {%>
+                    <a class="dropdown-item" href="/signin">Sign in</a></li>
+                    <%}%>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- shop category -->
+  <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvas"
+    aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasLabel">Category</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+  
+      <form class="offcanvasSearch" method="post" action="/search">
+        <input type="search" class="form-control" name="search" placeholder="Search" aria-label="Search" required>
+      </form>
+    <a href="/all"><button class="offcanvasBtn">
+        All </button></a>
+    <button class="offcanvasBtn" data-bs-toggle="collapse" href="#collapseWomen" role="button" aria-expanded="false"
+      aria-controls="collapseWomen">
+      Women </button>
+    <div class="collapse" id="collapseWomen">
+      <div class="offcanvasCollapse border-bottom border-top">
+        <a class="offcanvasCollapseBtn" href="/women">All</a>
+        <a class="offcanvasCollapseBtn" href="/women/robes">Robes</a>
+        <a class="offcanvasCollapseBtn" href="/women/pajamas">Pajamas</a>
+        <a class="offcanvasCollapseBtn" href="/women/others">Others</a>
+      </div>
+    </div>
+    <button class="offcanvasBtn" data-bs-toggle="collapse" href="#collapseMen" role="button" aria-expanded="false"
+      aria-controls="collapseMen">
+      Men
+    </button>
+    <div class="collapse" id="collapseMen">
+      <div class="offcanvasCollapse border-bottom border-top">
+        <a class="offcanvasCollapseBtn" href="/men">All</a>
+        <a class="offcanvasCollapseBtn" href="/men/robes">Robes</a>
+        <a class="offcanvasCollapseBtn" href="/men/pajamas">Pajamas</a>
+        <a class="offcanvasCollapseBtn" href="/men/others">Others</a>
+      </div>
+    </div>
+  </div>

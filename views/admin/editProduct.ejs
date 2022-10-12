@@ -1,0 +1,48 @@
+<%- include("../includes/header") %>
+<%- include("../includes/adminNavbar") %>
+
+<div class="container-fluid productBox">
+    <form class="product-form" action="/admin/product/<%= product.id %>?_method=PUT" method="POST"
+        enctype="multipart/form-data">
+        <div>
+            <label for="name">Product name</label>
+            <input class="form-control" type="text" name="name" id="name" value="<%= product.name %>">
+        </div>
+        <div>
+            <label for="category">Category</label>
+            <select id="category" name="category" class="form-control" required>
+                <option value="women" <%= product.category == "women" ? "selected" : ""  %>>Women</option>
+                <option value="men" <%= product.category == "men" ? "selected" : ""  %>>Men</option>
+            </select>
+        </div>
+        <div>
+            <label for="subcategory">Subcategory</label>
+            <select id="subcategory" name="subcategory" class="form-control" required>
+                <option value="robes" <%= product.subcategory == "robes" ? "selected" : ""  %>>Robes</option>
+                <option value="pajamas" <%= product.subcategory == "pajamas" ? "selected" : ""  %>>Pajamas</option>
+                <option value="others" <%= product.subcategory == "others" ? "selected" : ""  %>>Others</option>
+            </select>
+        </div>
+        <div>
+            <label for="image">Image</label>
+            <input class="form-control" type="file" name="photo" id="image" accept="image/*">
+        </div>
+        <div>
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="price" id="price" min="1" step="1"
+                value="<%= product.price %>" required>
+        </div>
+        <div>
+            <label for="stock">Stock</label>
+            <input class="form-control" type="number" name="stock" id="stock" min="1" step="1"
+                value="<%= product.stock %>" required>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="5"
+                required><%= product.description%></textarea>
+        </div>
+            <button class="adminBtn btn btn-secondary" type="submit">SAVE</button>
+    </form>
+</div>
+<%- include("../includes/footer") %>

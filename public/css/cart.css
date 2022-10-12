@@ -1,0 +1,108 @@
+/* cart */
+
+.cartBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    width: 90%;
+    padding: 1rem;
+}
+
+.cartCard {
+    padding: 1vw;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cartCardBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.emptyImg {
+    height: 40vmin;
+    margin: 1rem;
+}
+
+.emptyMessage {
+    text-align: center;
+    padding: 1rem;
+}
+
+.cartImg {
+    width: 100%;
+}
+
+.editAmountBtn {
+    background-color: transparent;
+    border: none;
+}
+
+.qtyIcon {
+    width: 0.5rem;
+}
+
+.deleteCartBtn {
+    background-color: transparent;
+    border: none;
+}
+
+.shippingInfoAlertMessage {
+    display: none;
+    word-break: normal;
+    margin: 1rem 0 0 0;
+}
+
+/* payment result */
+
+.resultBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    width: 70vw;
+    padding: 1rem;
+    font-size: smaller;
+}
+
+.resultImg {
+    height: 40vmin;
+}
+
+.resultTitle {
+    font-family: 'Gideon Roman', cursive;
+}
+
+.resultDisplay {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultMessageBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.resultMessageTitle {
+    padding: 0 1rem 0.5rem 0.5rem;
+    width: auto;
+    text-align: left;
+}
+.resultMessage {
+    padding: 0 1rem 0.5rem 0.5rem;
+    width: auto;
+    text-align: right;
+    color: grey;
+}
+
+.resultLine {
+    margin: 1rem;
+}

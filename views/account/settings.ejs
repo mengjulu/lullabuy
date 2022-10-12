@@ -1,0 +1,29 @@
+<%- include("../includes/header") %>
+<% if(user && user.isAdmin) {%>
+    <%- include("../includes/adminNavbar") %>
+<% } else { %>
+    <%- include("../includes/shopNavbar") %>
+<% } %>
+
+<div class="container-fluid accountBox">
+    <h5 class="accountTitle">PERSONAL INFO</h5>
+    <div class="settingsDisplay">
+        <h6 class="infoItem">ACCOUNT <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <p class="infoText"> <%= user.account %></p>
+        <h6 class="infoItem">PASSWORD <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <a class="btn btn-outline-secondary" href="/account/settings/password">CHANGE PASSWORD</a>
+        <h6 class="infoItem">FIRST NAME <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <p id="firstName" class="infoText"><%= user.firstName ? user.firstName : "-" %></p>
+        <h6 class="infoItem">LAST NAME <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <p id="lastName" class="infoText"><%= user.lastName ? user.lastName : "-" %></p>
+        <h6 class="infoItem">PHONE NUMBER <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <p id="number" class="infoText"><%= user.number ? user.number : "-" %></p>
+        <h6 class="infoItem">ADDRESS <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+        <p id="address" class="infoText"><%= user.address ? user.address : "" %></p>
+    </div>
+    <span class="alert alert-danger authAlertMessage"></span>
+    <button class="editBtn btn btn-outline-secondary">EDIT</button>
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/account.js"></script>

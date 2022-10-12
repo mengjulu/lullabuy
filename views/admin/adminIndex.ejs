@@ -1,0 +1,34 @@
+<%- include("../includes/header") %>
+<%- include("../includes/adminNavbar") %>
+
+<div class="container-fluid adminBox">
+    <div>
+        <%- include("../includes/yearlyChart", {yearlyBarData: yearlyBarData, yearlyLineData: yearlyLineData}) %>
+    </div>
+    <div>
+    <h6>TODAY'S ORDER</h6>
+    <%if (allOrders.length != 0){%>
+        <div class="orderDisplay">
+            <span class="orderDisplayItem">ORDER NO.</span>
+            <span class="orderDisplayItem">TOTAL</span>
+            <span class="orderDisplayItem">PAYMENT STATUS</span>
+        </div>
+        <div class="orderIndexBox">
+        <% for(let order of allOrders) {%>
+            <div class="orderDisplay">
+                <span class="orderDisplayItem"><%=order.orderNumber%></span>
+                <span class="orderDisplayItem">$ <%= Number(order.orderSum).toLocaleString() %></span>
+                <span class="orderDisplayItem"><%= order.paymentStatus %></span>
+            </div>
+            <%}%>
+    </div>
+    <%} else {%>
+        <span class="orderDisplay">No order today.</span>
+    <% } %>
+</div>
+   
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/admin.js"></script>
+<script src="/static/js/chart.js"></script>

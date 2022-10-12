@@ -1,0 +1,38 @@
+<%- include("../includes/header") %>
+<%- include("../includes/shopNavbar") %>
+
+<div class="container-fluid accountBox">
+
+  <%if(wishlists.length == 0){%>
+  <div>
+    <img class="emptyImg" src="/static/image/heart.svg" alt="">
+    <h5 class="emptyMessage">Oops! Nothing on your wishlist yet.</h5>
+    <a class="btn btn-outline-secondary" href="/all">BACK TO HOMEPAGE</a>
+  </div>
+  <% } else {%>
+  <h5 class="accountTitle">MY WISHLIST</h5>
+  <p class="text-muted"><%=wishlists.length%> item(s)</p>
+  <div class="wishlistDisplay">
+    <%for (let product of wishlists){%>
+    <div class="productCard card">
+      <button class="wishListHeart" value="<%= product.id %>">
+        <img class="wishListHeartIcon" src="/static/image/icon/full-heart.svg" alt="">
+      </button>
+      <img src="<%= product.imageUrl %>" class="img-fluid cardImg" alt="photo">
+      <div class="productCardBody card-body">
+        <a href="/<%= product.category %>/<%= product.subcategory %>/<%= product.name %>">
+          <p class="card-title"><%= product.name %></p>
+        </a>
+        <p class="card-subtitle text-muted">$<%= product.price.toLocaleString() %></p>
+        <button class="cartBtn" value="<%= product.id %>">ADD TO CART</button>
+      </div>
+    </div>
+    <%}%>
+    </div>
+    <%}%>
+  </div>
+
+  <%- include("../includes/footer") %>
+
+  <script src="/static/js/cart.js"></script>
+  <script src="/static/js/wishlist.js"></script>

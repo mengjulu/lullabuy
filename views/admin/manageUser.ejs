@@ -1,0 +1,25 @@
+<%- include("../includes/header") %>
+<%- include("../includes/adminNavbar") %>
+<div class="manageUserBox">
+    <h5 class="accountTitle">USER LIST</h5>
+    <div class="userDisplay">
+        <span class="userDisplayItem">ACCOUNT</span>
+        <span class="userDisplayItem">FIRST NAME</span>
+        <span class="userDisplayItem">LAST NAME</span>
+        <span class="userDisplayItem">ADMIN</span>
+    </div>
+    <% for(let users of allUsers) { %>
+    <div class="userDisplay">
+        <span class="userDisplayItem"><%= users.account %></span>
+        <span class="userDisplayItem"><%= users.firstName %></span>
+        <span class="userDisplayItem"><%= users.lastName %></span>
+        <span class="form-switch userDisplayItem">
+                <input class="adminCheckBtn form-check-input" type="checkbox" value="<%= users.id %>" <%= users.isAdmin ? "checked" : "" %>>
+        </span>
+    </div>
+    <% } %>
+</div>
+
+<%- include("../includes/footer") %>
+
+<script src="/static/js/admin.js"></script>

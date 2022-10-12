@@ -1,0 +1,29 @@
+<%- include("../includes/header") %>
+<%- include("../includes/adminNavbar") %>
+
+
+<div class="container-fluid cardBox">
+  <a class="createBtn btn btn-outline-secondary" href="/admin/product">CREATE PRODUCT</a>
+
+  <div class="productCardDisplay">
+    <%for(let product of allProducts) {%>
+    <div class="card productCard">
+      <img src="<%=product.imageUrl%>" class="card-img-top cardImg" alt="photo">
+      <div class="card-body productCardBody">
+        <p class="card-title"><%= product.name %></p>
+        <p class="card-subtitle text-muted small">$<%= product.price.toLocaleString() %></p>
+        <p class="card-subtitle text-muted small"><%= product.stock %> pieces left</p>
+
+      </div>
+      <div> 
+        <a href="/admin/product/<%=product.id%>" class="btn btn-sm btn-secondary">EDIT</a>
+        <button value="<%=product.id%>" class="deleteProductBtn btn btn-sm btn-outline-secondary">DELETE</button>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+</div>
+<%- include("../includes/footer") %>
+
+<script src="/static/js/admin.js"></script>

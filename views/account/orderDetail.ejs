@@ -1,0 +1,65 @@
+<%- include("../includes/header") %>
+<% if(user && user.isAdmin) {%>
+<%- include("../includes/adminNavbar") %>
+<% } else { %>
+<%- include("../includes/shopNavbar") %>
+<% } %>
+
+<div class="container-fluid orderBox">
+
+  <h5 class="accountTitle">ORDER OVERVIEW</h5>
+
+  <div class="orderInfoTitleBox">
+    <div class="orderInfoBox">
+      <h6 class="accountSubTitle">ORDER INFO <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+      <p>ORDER NUMBER</p>
+      <p class="infoText"><%= order.orderNumber %></p>
+      <p>TRANSACTION DATE</p>
+      <p class="infoText"><%= order.createdAt.toLocaleDateString() %></p>
+      <p>PAYMENT STATUS</p>
+      <p class="infoText"> <%= order.paymentStatus %> </p>
+    </div>
+    <div class="orderInfoBox">
+      <h6 class="accountSubTitle">SHIPPING TO <img class="icon" src="/static/image/icon/dots.svg" alt=""></h6>
+      <p>RECEIVER NAME</i></p>
+      <p class="infoText"><%= order.firstName %> <%= order.lastName %></p>
+      <p>ADDRESS</p>
+      <p class="infoText"><%= order.address %></p>
+      <p>PHONE</p>
+      <p class="infoText"><%= order.number %></p>
+      <p>EMAIL</p>
+      <p class="infoText"><%= order.email %></p>
+    </div>
+  </div>
+
+  <h6 class="accountSubTitle">PRODUCTS ORDERED</h6>
+  <div class="orderDisplay">
+    <span class="orderDisplayImg"></span>
+    <span class="orderDisplayItem">Name</span>
+    <span class="orderDisplayItem">Qty</span>
+    <span class="orderDisplayItem">price</span>
+    <span class="orderDisplayItem">Subtotal</span>
+  </div>
+  <%for (let product of productDetails){%>
+  <div class="orderDisplay">
+    <img class="orderDisplayImg" loading="lazy" src="<%= product.imageUrl %>" alt="productImage">
+    <a class="orderDisplayItem"
+      href="<%= user && user.isAdmin ? "#" : `/${product.category}/${product.subcategory}/${product.name}` %>">
+      <%= product.name %>
+    </a>
+
+    <span class="orderDisplayItem"><%= product["orderProduct.quantity"] %></span>
+    <span class="orderDisplayItem">$ <%= product.price.toLocaleString() %></span>
+    <span class="orderDisplayItem">$
+      <%= Number(product.price * product["orderProduct.quantity"]).toLocaleString() %></span>
+  </div>
+  <%}%>
+  <div class="orderDisplay">
+  <p class="orderDisplayItem">Total</p>
+  <p class="orderDisplayItem orderDetailSum">$ <%= Number(order.orderSum).toLocaleString() %></p>
+</div>
+
+
+</div>
+
+<%- include("../includes/footer") %>
