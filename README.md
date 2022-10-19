@@ -57,19 +57,25 @@ An online shop build with node.js, ejs, redis, mysql, etc., and deploys on AWS &
 | EV                    | Description (`default`)                |
 |-----------------------|----------------------------------------|
 | JWTSECRET             | JWT secret                             |
-| MYSQL_USER            | Mysql username                  |
-| MYSQL_PASSWORD        | Mysql password                  |
+| MYSQL_USER            | Mysql username                         |
+| MYSQL_PASSWORD        | Mysql password                         |
 | MYSQL_DEV_NAME        | Database name in development mode      |
 | MYSQL_TEST_NAME       | Database name in test mode             |
 | MYSQL_PRODUCTION_NAME | Database name in production mode       |
-| MAIN_DOMAIN           | Main domain (`http://localhost:3000/`) |
+| MAIN_URL           | Main url (`http://localhost:3000/`) |
 | HOTMAIL_ACCOUNT       | Hotmail account                        |
 | HOTMAIL_PASSWORD      | Hotmail password                       |
 | ECPAY_MERCHANTID      | ECpay merchantID (`3002607`)           |
 | ECPAY_HASHKEY         | ECpay hashkey (`pwFHCqoQZGmho4w6`)     |
 | ECPAY_HASHIV          | ECpay hashIV (`EkRm7iFT261dpevs`)      |
+| REDIS_HOST             | Redis host                            |
+| REDIS_PORT             | Redis port                            |
+| REDIS_URL           | Redis url                               |
 
-<sub>Note: If you want to test ECpay payment locally, please install ngrok and run `ngrok http 3000`, then replace `MAIN_DOMAIN` with the url it provides.</sub>
+<sub>NOTE</sub>
+
+<sub>1. If you want to test ECpay payment locally, please install ngrok and run `ngrok http 3000`, then replace `MAIN_URL` with the url it provides.\
+2. REDIS_HOST, REDIS_PORT or REDIS_URL is needed only when you want to connect to different host, port, or url for other configuration.</sub>
 
 
 **Establish database and create data**
@@ -102,59 +108,59 @@ An online shop build with node.js, ejs, redis, mysql, etc., and deploys on AWS &
 
 # API Usage
 
-| Method    | Route                                              | Description                                           |
-|-----------|----------------------------------------------------|-------------------------------------------------------|
-| `SHOP`    |                                                    |                                                       |
-| GET       | /                                                  | Get index page                                        |
-| GET       | /:productCategory                                  | Return products by category                           |
-| GET       | /:productCategory/:productSubCategory              | Return products by subcategory                        |
-| GET       | /:productCategory/:productSubCategory/:productName | Return product details by product name                |
-| GET       | /search                                            | Get search result page                                |
-| POST      | /search                                            | Redirect to search result                             |
-| GET       | /cart                                              | Get cart page                                         |
-| POST      | /cart                                              | Add product to cart                                   |
-| PUT       | /cart                                              | Update the amount of product in cart                  |
-| DELETE    | /cart                                              | Delete the product in cart                            |
-| `ORDER`   |                                                    |                                                       |
-| POST      | /checkout                                          | create a new order and redirect to third-party payment page                                    |
-| POST      | /payment/callback                                  | retrieve and check result from ECpay                  |
-| GET       | /payment/:orderNumber                              | Redirect to ECpay payment                             |
-| POST      | /payment/:orderNumber                              | retrieve result from ECpay and render to payment page |
-| GET       | /order/:token                                      | Return order details (for order confirmation letter)  |
-| `AUTH`    |                                                    |                                                       |
-| GET       | /signup                                            | Get sign up page                                      |
-| POST      | /signup                                            | Create a new user                                     |
-| GET       | /signin                                            | Get sign in page                                      |
-| POST      | /signin                                            | User sign in                                          |
-| GET       | /signout                                           | User sign out                                         |
-| `ACCOUNT` |                                                    |                                                       |
-| GET       | /account/order                                     | Return user's orders                                  |
-| GET       | /account/order/:orderNumber                        | Return user's order details                           |
-| PATCH     | /account/order/:orderNumber                        | Cancel user's order                                   |
-| GET       | /account/wishlist                                  | Return user's wishlists                               |
-| PUT      | /account/wishlist                                  | Add/Remove product to/from wishlist                   |
-| GET       | /account/settings                                  | Get user's settings page                              |
-| PUT       | /account/settings                                  | Edit user's settings                                  |
-| GET       | /account/settings/password                         | Get edit password page                                |
-| PATCH     | /account/settings/password                         | Update user's password                                |
-| `ADMIN`   |                                                    |                                                       |
-| GET       | /admin                                             | Get admin index page                                  |
-| GET       | /admin/order                                       | Return all orders                                     |
-| GET       | /admin/order/:orderNumber                          | Return the order details                              |
-| POST      | /admin/order/:orderNumber                          | Resend an order confirmation letter                   |
-| PATCH     | /admin/order/:orderNumber                          | Cancel the order                                      |
-| DELETE    | /admin/order/:orderNumber                          | Delete the order                                      |
-| GET       | /admin/:productCategory                            | Return manage product by category                     |
-| GET       | /admin/:productCategory/:productSubCategory        | Return manage product by subcategory                  |
-| GET       | /admin/product                                     | Get create product page                               |
-| POST      | /admin/product                                     | Create a new product                                  |
-| GET       | /admin/product/:productID                          | Get edit product page                                 |
-| PUT       | /admin/product/:productID                          | Update the product                                    |
-| DELETE    | /admin/product/:productID                          | Delete the product                                    |
-| GET       | /admin/user                                        | Return all users                                      |
-| PATCH     | /admin/user                                        | Update user's authority                               |
-| `ERROR`   |                                                    |                                                           |
-| GET       | /error                                             | Get error page                                        |
+| Method    | Route                                              | Description                                                 |
+|-----------|----------------------------------------------------|-------------------------------------------------------------|
+| `SHOP`    |                                                    |                                                             |
+| GET       | /                                                  | Get index page                                              |
+| GET       | /:productCategory                                  | Return products by category                                 |
+| GET       | /:productCategory/:productSubCategory              | Return products by subcategory                              |
+| GET       | /:productCategory/:productSubCategory/:productName | Return product details by product name                      |
+| GET       | /search                                            | Get search result page                                      |
+| POST      | /search                                            | Redirect to search result                                   |
+| GET       | /cart                                              | Get cart page                                               |
+| POST      | /cart                                              | Add product to cart                                         |
+| PUT       | /cart                                              | Update the amount of product in cart                        |
+| DELETE    | /cart                                              | Delete the product in cart                                  |
+| `ORDER`   |                                                    |                                                             |
+| POST      | /checkout                                          | create a new order and redirect to third-party payment page |
+| POST      | /payment/callback                                  | retrieve and check result from ECpay                        |
+| GET       | /payment/:orderNumber                              | Redirect to ECpay payment                                   |
+| POST      | /payment/:orderNumber                              | retrieve result from ECpay and render to payment page       |
+| GET       | /order/:token                                      | Return order details (for order confirmation letter)        |
+| `AUTH`    |                                                    |                                                             |
+| GET       | /signup                                            | Get sign up page                                            |
+| POST      | /signup                                            | Create a new user                                           |
+| GET       | /signin                                            | Get sign in page                                            |
+| POST      | /signin                                            | User sign in                                                |
+| GET       | /signout                                           | User sign out                                               |
+| `ACCOUNT` |                                                    |                                                             |
+| GET       | /account/order                                     | Return user's orders                                        |
+| GET       | /account/order/:orderNumber                        | Return user's order details                                 |
+| PATCH     | /account/order/:orderNumber                        | Cancel user's order                                         |
+| GET       | /account/wishlist                                  | Return user's wishlists                                     |
+| PUT       | /account/wishlist                                  | Add/Remove product to/from wishlist                         |
+| GET       | /account/settings                                  | Get user's settings page                                    |
+| PUT       | /account/settings                                  | Edit user's settings                                        |
+| GET       | /account/settings/password                         | Get edit password page                                      |
+| PATCH     | /account/settings/password                         | Update user's password                                      |
+| `ADMIN`   |                                                    |                                                             |
+| GET       | /admin                                             | Get admin index page                                        |
+| GET       | /admin/order                                       | Return all orders                                           |
+| GET       | /admin/order/:orderNumber                          | Return the order details                                    |
+| POST      | /admin/order/:orderNumber                          | Resend an order confirmation letter                         |
+| PATCH     | /admin/order/:orderNumber                          | Cancel the order                                            |
+| DELETE    | /admin/order/:orderNumber                          | Delete the order                                            |
+| GET       | /admin/:productCategory                            | Return manage product by category                           |
+| GET       | /admin/:productCategory/:productSubCategory        | Return manage product by subcategory                        |
+| GET       | /admin/product                                     | Get create product page                                     |
+| POST      | /admin/product                                     | Create a new product                                        |
+| GET       | /admin/product/:productID                          | Get edit product page                                       |
+| PUT       | /admin/product/:productID                          | Update the product                                          |
+| DELETE    | /admin/product/:productID                          | Delete the product                                          |
+| GET       | /admin/user                                        | Return all users                                            |
+| PATCH     | /admin/user                                        | Update user's authority                                     |
+| `ERROR`   |                                                    |                                                             |
+| GET       | /error                                             | Get error page                                              |
 
 
 # ER diagram

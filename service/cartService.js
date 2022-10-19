@@ -33,25 +33,25 @@ module.exports = {
         const cookie = getCartCookie(req);
         const cartID = cookie ? cookie : crypto.randomUUID();
         const productID = req.body.productID;
-        const productInCart = await client.HGET(cartID, productID);
+        const productInCart = await client.hget(cartID, productID);
         const product = await getProductCache(productID);
         const stock = product.stock;
-        let cartNum = await client.HLEN(cartID);
+        let cartNum = await client.hlen(cartID);
         let addStatus = false;
 
         //  Add to cart if the stock is greater or equal to the amount of product in cart
         if (stock > productInCart) {
             // Edit the amount of product in cart or add the product to cart
-            productInCart ? await client.HINCRBY(cartID, productID, 1) :
-                (await client.HSET(cartID, productID, 1), cartNum++);
+            productInCart ? await client.hincrby(cartID, productID, 1) :
+                (await client.hset(cartID, productID, 1), cartNum++);
             addStatus = true;
         } else if (stock < productInCart) {
             // Set the stock as the quantity if the stock is less than the amount of product in cart
-            await client.HSET(cartID, productID, stock);
+            await client.hset(cartID, productID, stock);
         };
 
         // Reset cart expiration if it's visitor's cart
-        if (!req.user) await client.EXPIRE(cartID, 43200);
+        if (!req.user) await client.expire(cartID, 43200);
 
         return {
             cartNum: cartNum,
@@ -66,7 +66,7 @@ module.exports = {
         const cartID = getCartCookie(req);
         const productID = req.body.productID;
         const editAmount = Number(req.body.editAmount);
-        const productInCart = Number(await client.HGET(cartID, productID));
+        const productInCart = Number(await client.hget(cartID, productID));
         const product = await getProductCache(productID);
         let remainingStock = product.stock;
         let editedAmount = 0;
@@ -76,21 +76,21 @@ module.exports = {
         // Edit the amount of product in cart if the stock is greater than the amount of product in cart
         // or the stock equals to the amount of product in cart when editAmount equals -1
         if (remainingStock > productInCart || (remainingStock == productInCart && editAmount == -1)) {
-            await client.HINCRBY(cartID, productID, editAmount);
+            await client.hincrby(cartID, productID, editAmount);
             productEditedQuantity = productInCart + editAmount;
             editedAmount = editAmount;
             editStatus = true;
 
         // Set the stock as the quantity if the amount of product in cart is greater than the stock
         } else if (remainingStock < productInCart) {
-            await client.HSET(cartID, productID, remainingStock);
+            await client.hset(cartID, productID, remainingStock);
             productEditedQuantity = remainingStock;
             editedAmount = remainingStock - productInCart;
         } else {
             productEditedQuantity = remainingStock;
         };
         // Reset cart expiration if it's visitor's cart
-        if (!req.user) await client.EXPIRE(cartID, 43200);
+        if (!req.user) await client.expire(cartID, 43200);
         return {
             productEditedQuantity: productEditedQuantity,
             editedAmount: editedAmount,
@@ -104,8 +104,8 @@ module.exports = {
 
         const cartID = getCartCookie(req);
         const productID = req.body.productID;
-        const deleteStatus = await client.HDEL(cartID, productID);
-        const cartNum = await client.HLEN(cartID);
+        const deleteStatus = await client.hdel(cartID, productID);
+        const cartNum = await client.hlen(cartID);
 
         return {
             deleteStatus: !!deleteStatus,

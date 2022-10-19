@@ -57,8 +57,8 @@ module.exports = {
         const cartID = getCartCookie(req);
         if (cartID) {
             // Alter cart id into user id, and set the cart to never expire in redis
-            client.RENAME(cartID, newUser.id);
-            client.PERSIST(newUser.id);
+            client.rename(cartID, newUser.id);
+            client.persist(newUser.id);
         };
 
         // Generate jwt token
@@ -102,21 +102,21 @@ module.exports = {
         const adminStatus = user.isAdmin;
 
         if (cartID && !adminStatus) {
-            const visitorCartProducts = await client.HGETALL(cartID);
-            const userCart = await client.HLEN(user.id);
+            const visitorCartProducts = await client.hgetall(cartID);
+            const userCart = await client.hlen(user.id);
             // Check if the user already has cart
             if (!userCart) {
                 // If not, alter cart id into user id
-                client.RENAME(cartID, user.id);
+                client.rename(cartID, user.id);
             } else {
                 // If so, add all products in visitor's cart into user's cart
                 for (let [key, value] of Object.entries(visitorCartProducts)) {
-                    const productCheck = await client.HGET(user.id, key);
-                    await productCheck ? client.HINCRBY(user.id, key, value) : client.HSET(user.id, key, value);
+                    const productCheck = await client.hget(user.id, key);
+                    await productCheck ? client.hincrby(user.id, key, value) : client.hset(user.id, key, value);
                 }
             };
             // set the cart to never expire in redis
-            client.PERSIST(user.id);
+            client.persist(user.id);
         };
 
         // Generate jwt token

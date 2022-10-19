@@ -5,14 +5,14 @@ module.exports = {
     getProductCache: async (productID) => {
         let products;
         //check if there's cache in Redis
-        const cacheProduct = await client.GET(productID);
+        const cacheProduct = await client.get(productID);
 
         //if not, get data in database and save data in Redis
         if (!cacheProduct) {
             products = await Product.findByPk(productID, {
                 raw: true
             });
-            await client.SETEX(productID, 3600, JSON.stringify(products));
+            await client.setex(productID, 3600, JSON.stringify(products));
         } else {
             products = JSON.parse(cacheProduct);
         };

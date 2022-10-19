@@ -47,9 +47,9 @@ const getECpayPage = async (orderNumber) => {
         TotalAmount: `${orderInfo.orderSum}`,
         TradeDesc: "For lullabuy project test only",
         ItemName: `${orderInfo.orderItems}`,
-        PaymentInfoURL: `${process.env.MAIN_DOMAIN}/payment`,
-        ReturnURL: `${process.env.MAIN_DOMAIN}/payment/callback`,
-        OrderResultURL: `${process.env.MAIN_DOMAIN}/payment/${orderNumber}`,
+        PaymentInfoURL: `${process.env.MAIN_URL}/payment`,
+        ReturnURL: `${process.env.MAIN_URL}/payment/callback`,
+        OrderResultURL: `${process.env.MAIN_URL}/payment/${orderNumber}`,
         EncryptType: 1
     };
 

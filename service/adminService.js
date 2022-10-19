@@ -208,7 +208,7 @@ module.exports = {
         });
 
         // Remove cache
-        await client.EXPIRE(productID, 0);
+        await client.expire(productID, 0);
 
         return "/admin/product/all";
     },

@@ -17,15 +17,15 @@ let deleteStatus;
 describe("Cart service", () => {
     before("stub config", () => {
         sinon.stub(crypto, "randomUUID").returns(mockID);
-        sinon.stub(client, "GET");
-        sinon.stub(client, "SETEX");
-        sinon.stub(client, "HSET");
-        sinon.stub(client, "HINCRBY");
-        sinon.stub(client, "EXPIRE");
-        currProductQtyInCart = sinon.stub(client, "HGET");
-        carts = sinon.stub(client, "HGETALL");
-        cartNum = sinon.stub(client, "HLEN");
-        deleteStatus = sinon.stub(client, "HDEL");
+        sinon.stub(client, "get");
+        sinon.stub(client, "setex");
+        sinon.stub(client, "hset");
+        sinon.stub(client, "hincrby");
+        sinon.stub(client, "expire");
+        currProductQtyInCart = sinon.stub(client, "hget");
+        carts = sinon.stub(client, "hgetall");
+        cartNum = sinon.stub(client, "hlen");
+        deleteStatus = sinon.stub(client, "hdel");
 
         sinon.stub(User, "create").returns({
             id: "test",
@@ -377,15 +377,15 @@ describe("Cart service", () => {
 
     after("restore stub function", () => {
         crypto.randomUUID.restore();
-        client.GET.restore();
-        client.SETEX.restore();
-        client.HSET.restore();
-        client.HGET.restore();
-        client.HINCRBY.restore();
-        client.HGETALL.restore();
-        client.HLEN.restore();
-        client.HDEL.restore();
-        client.EXPIRE.restore();
+        client.get.restore();
+        client.setex.restore();
+        client.hset.restore();
+        client.hget.restore();
+        client.hincrby.restore();
+        client.hgetall.restore();
+        client.hlen.restore();
+        client.hdel.restore();
+        client.expire.restore();
         User.findByPk.restore();
         User.create.restore();
         User.findOne.restore();

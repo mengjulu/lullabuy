@@ -18,9 +18,9 @@ describe("admin service", () => {
 
   before("stub config", () => {
     sinon.stub(fs, "unlinkSync");
-    sinon.stub(client, "EXPIRE");
-    sinon.stub(client, "GET");
-    sinon.stub(client, "SETEX");
+    sinon.stub(client, "expire");
+    sinon.stub(client, "get");
+    sinon.stub(client, "setex");
     sinon.stub(transporter, "sendMail");
     sinon.stub(jwt, "sign").returns("testToken");
     sinon.stub(User, "findAll").returns([]);
@@ -260,9 +260,9 @@ describe("admin service", () => {
 
   after("restore stub function", () => {
     fs.unlinkSync.restore();
-    client.EXPIRE.restore();
-    client.GET.restore();
-    client.SETEX.restore();
+    client.expire.restore();
+    client.get.restore();
+    client.setex.restore();
     transporter.sendMail.restore();
     User.findAll.restore();
     User.findByPk.restore();

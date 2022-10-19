@@ -10,14 +10,14 @@ module.exports = {
     // Get the number of products in cart
     getCartNum: async (req) => {
         const cartID = getCartCookie(req);
-        const cartNum = cartID ? await client.hLen(cartID) : 0;
+        const cartNum = cartID ? await client.hlen(cartID) : 0;
         return cartNum;
     },
 
     // Get product infomation from cart
     getCartInfo: async (cartID) => {
 
-        let carts = cartID ? Object.entries(await client.HGETALL(cartID)) : [];
+        let carts = cartID ? Object.entries(await client.hgetall(cartID)) : [];
 
         for (let i = 0; i < carts.length; i++) {
             const productID = carts[i][0];
@@ -27,7 +27,7 @@ module.exports = {
             // Modify cart quantity if cart quantity is more than current stock
             if (product.stock < Number(productQty)) {
                 carts[i][1] = product.stock;
-                await client.HSET(cartID, productID, product.stock);
+                await client.hset(cartID, productID, product.stock);
             };
             carts[i][0] = product;
         };

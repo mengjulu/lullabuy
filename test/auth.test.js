@@ -15,13 +15,13 @@ let passwordComparison;
 describe("Auth service", () => {
 
     before("stub config", () => {
-        sinon.stub(client, "HGET").returns();
-        sinon.stub(client, "HINCRBY").returns();
-        sinon.stub(client, "HSET").returns();
-        sinon.stub(client, "PERSIST").returns();
-        sinon.stub(client, "HGETALL").returns();
-        sinon.stub(client, "HLEN").returns();
-        sinon.stub(client, "RENAME").returns();
+        sinon.stub(client, "hget").returns();
+        sinon.stub(client, "hincrby").returns();
+        sinon.stub(client, "hset").returns();
+        sinon.stub(client, "persist").returns();
+        sinon.stub(client, "hgetall").returns();
+        sinon.stub(client, "hlen").returns();
+        sinon.stub(client, "rename").returns();
         sinon.stub(jwt, "sign").returns("testToken");
         sinon.stub(User, "create").returns({
             id: "test",
@@ -146,12 +146,12 @@ describe("Auth service", () => {
         User.findOne.restore();
         User.create.restore();
         jwt.sign.restore();
-        client.HGET.restore();
-        client.HINCRBY.restore();
-        client.HSET.restore();
-        client.PERSIST.restore();
-        client.HGETALL.restore();
-        client.HLEN.restore();
-        client.RENAME.restore();
+        client.hget.restore();
+        client.hincrby.restore();
+        client.hset.restore();
+        client.persist.restore();
+        client.hgetall.restore();
+        client.hlen.restore();
+        client.rename.restore();
     });
 });

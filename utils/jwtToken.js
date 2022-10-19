@@ -16,6 +16,6 @@ module.exports = {
         }, process.env.JWTSECRET);
         // Generate link of order details with jwtToken,
         // so buyers can link to their orders without authentication
-        return `${process.env.MAIN_DOMAIN}/order/${token}`;
+        return `${process.env.MAIN_URL}/order/${token}`;
     }
 };

@@ -99,7 +99,7 @@ module.exports = {
                         transaction: t
                     });
                     //Remove the product cache
-                    client.EXPIRE(p.id, 0);
+                    client.expire(p.id, 0);
                 });
 
                 // Update payment status of the order
@@ -159,7 +159,7 @@ module.exports = {
         });
 
         // Remove cart cache
-        client.EXPIRE(cartID, 0);
+        client.expire(cartID, 0);
 
         if (userID) {
             const user = await User.findByPk(userID);
