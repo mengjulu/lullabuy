@@ -1,5 +1,5 @@
 # LULLABUY
-An online shop build with node.js, ejs, redis, mysql, etc., and deploys on AWS & Godaddy.
+An online shop build with node.js, ejs, redis, mysql, etc., and deploys on AWS with docker.
 
 # Table of Contents
 - [Live Demo](#live-demo)
