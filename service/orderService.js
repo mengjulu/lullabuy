@@ -1,4 +1,5 @@
 const Order = require("../models").Order;
+const Product = require("../models").Product;
 const User = require("../models").User;
 const db = require("../models/index").sequelize;
 const client = require("../config/redis");
@@ -83,32 +84,11 @@ module.exports = {
         const orderNumber = MerchantTradeNo.split("LU")[0];
         const order = await Order.findByPk(orderNumber);
         const orderSum = order.orderSum;
-        let productDetails;
-        // Reduce the stock of products if payment succeed
+        
         if (rtnCode == "1") {
-            await db.transaction(async (t) => {
-                productDetails = await order.getProducts({
-                    joinTableAttributes: ["quantity"],
-                    paranoid: false,
-                    transaction: t
-                });
-                await productDetails.forEach(async (p) => {
-                    const soldAmount = p.orderProduct.quantity;
-                    await p.decrement("stock", {
-                        by: soldAmount,
-                        transaction: t
-                    });
-                    //Remove the product cache
-                    client.expire(p.id, 0);
-                });
-
-                // Update payment status of the order
-                await order.update({
-                    paymentStatus: 1,
-                    transaction: t
-                });
-            })
-            // Send order confirmation letter to the user
+            await order.update({
+                paymentStatus: 1
+            });
             sendOrderContentMail(order, orderSum, productDetails);
         };
 
@@ -145,16 +125,27 @@ module.exports = {
             await order.setUser(userID, {
                 transaction: t
             });
+
             // Add product and its quantity to the order
             for (let product of carts) {
-                let productName = product[0];
+                let productId = product[0].id;
                 let productQty = product[1];
-                await order.addProducts(productName.id, {
+                let p = await Product.findByPk(productId);
+
+                await order.addProducts(productId, {
                     through: {
                         quantity: productQty
                     },
                     transaction: t
-                })
+                });
+
+                // deduct stock for preventing overselling
+                await p.decrement("stock", {
+                    by: productQty,
+                    transaction: t
+                });
+                //Remove the product cache
+                client.expire(p.id, 0);
             };
         });
 
@@ -195,8 +186,24 @@ module.exports = {
             errorMessage: `Oops! Seems the order doesn’t exist.`
         }));
 
-        cancelStatus = await order.update({
-            paymentStatus: 3
+        await db.transaction(async (t) => {
+            let productDetails = await order.getProducts({
+                joinTableAttributes: ["quantity"],
+                paranoid: false,
+                transaction: t
+            });
+            // increase stock due to canceled order
+            await productDetails.forEach(async (p) => {
+                const soldAmount = p.orderProduct.quantity;
+                await p.increment("stock", {
+                    by: soldAmount,
+                    transaction: t
+                });
+            });
+            cancelStatus = await order.update({
+                paymentStatus: 3,
+                transaction: t
+            });
         });
 
         return {
